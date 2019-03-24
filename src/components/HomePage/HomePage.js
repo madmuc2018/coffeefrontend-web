@@ -9,8 +9,16 @@ class HomePage extends Component {
     super();
 
     this.state = {
-      orders: []
+      orders: [],
+      filterer: ""
     };
+
+    this.handleFilter = event => {
+      const { value } = event.target;
+      this.setState({
+        filterer: value.trim().toLowerCase()
+      });
+    }
   }
 
   async componentDidMount() {
@@ -27,7 +35,18 @@ class HomePage extends Component {
       <div>
         <MyNavBar/>
         <h1>Inventory</h1>
-        {this.state.orders.map(o =>
+        <input
+          placeholder="Search by ID"
+          name="filterer"
+          onChange={this.handleFilter}
+        />
+        <br/>
+        {this.state.orders
+          .filter(o => {
+            const keyword = this.state.filterer;
+            return keyword.length === 0 ? true : o.data.id.trim().toLowerCase().includes(keyword);
+          })
+          .map(o =>
           <div key={o.guid}>
             <p> Id: {o.data.id} </p>
             <p> Producer: {o.data.producer} </p>
