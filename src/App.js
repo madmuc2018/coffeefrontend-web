@@ -8,7 +8,6 @@ import UpdatePage from "./components/UpdatePage/UpdatePage"
 import IncludePage from "./components/IncludePage/IncludePage"
 import HistoryPage from "./components/HistoryPage/HistoryPage"
 import AccessControlPage from "./components/AccessControlPage/AccessControlPage"
-import Logout from "./components/Logout/Logout"
 import Auth from "./stores/auth";
 
 function PrivateRoute({ component: Component, ...rest }) {
@@ -31,6 +30,27 @@ function PrivateRoute({ component: Component, ...rest }) {
   );
 }
 
+function LogoutRoute({ component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        {
+          Auth.logout();
+          return (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: props.location }
+              }}
+            />
+          );
+        }
+      }
+    />
+  );
+}
+
 // Followed https://github.com/gothinkster/react-mobx-realworld-example-app
 // To adopt mobx faster later on
 export default class App extends React.Component {
@@ -40,7 +60,7 @@ export default class App extends React.Component {
         <Switch>
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
-          <PrivateRoute path="/logout" component={Logout} />
+          <LogoutRoute path="/logout" />
           <PrivateRoute exact path="/" component={HomePage} />
           <PrivateRoute path="/orders/include" component={IncludePage} />
           <PrivateRoute path="/orders/:id/update" component={UpdatePage} />
