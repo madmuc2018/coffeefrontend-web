@@ -8,5 +8,8 @@ export default {
   loggedIn() {
     const token = localStorage.getItem("token");
     return token && token.trim();
+  },
+  logout() {
+    localStorage.removeItem("token");
   }
 };

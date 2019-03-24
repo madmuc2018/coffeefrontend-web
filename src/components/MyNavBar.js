@@ -1,42 +1,29 @@
 import React from "react";
-import "../style.css";
-import { Link } from "react-router-dom";
 import logo from "./logo.png";
+import { Navbar, Nav, Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-class MyNavBar extends React.Component {
-  render() {
-    return (
-      <nav className="navbar">
-        <ul style={{ listStyle: "none" }}>
-          <li />
-          <li />
-        </ul>
-        <img
-          src={logo}
-          alt="logo"
-          style={{
-            width: 200,
-            height: 200,
-            resizeMode: "cover"
-          }}
-        />
-        <ul style={{ listStyle: "none" }}>
-          <li>
-            <NavLink to="/home"> Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/includecoffee"> Include Coffee</NavLink>
-          </li>
-        </ul>
-      </nav>
-    );
-  }
-}
-
-const NavLink = props => (
-  <li>
-    <Link {...props} style={{ textDecoration: "none", color: "white" }} />
-  </li>
+export default () => (
+  <Navbar bg="light" variant="dark">
+    <Navbar.Brand>
+      <img
+        src={logo}
+        alt="logo"
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+      />
+    </Navbar.Brand>
+    <Nav className="mr-auto">
+      <LinkContainer to="/">
+        <Button variant="link">Home</Button>
+      </LinkContainer>
+      <LinkContainer to="/orders/include">
+        <Button variant="link">Include</Button>
+      </LinkContainer>
+      <LinkContainer to="/logout">
+        <Button variant="link">Logout</Button>
+      </LinkContainer>
+    </Nav>
+  </Navbar>
 );
-
-export default MyNavBar;

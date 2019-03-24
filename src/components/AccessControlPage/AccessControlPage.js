@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import api from "../../Data/api";
+import MyNavBar from '../MyNavBar';
 
 class AccessControlPage extends Component {
   constructor() {
@@ -52,6 +53,7 @@ class AccessControlPage extends Component {
   render() {
     return (
       <div>
+        <MyNavBar/>
         <h1>Access control</h1>
         <h6> Coffee Id: </h6>
         <h5> Authorized Users</h5>

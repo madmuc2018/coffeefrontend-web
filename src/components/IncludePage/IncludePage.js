@@ -1,5 +1,6 @@
 import React from "react";
 import api from "../../Data/api";
+import MyNavBar from '../MyNavBar';
 
 class IncludePage extends React.Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class IncludePage extends React.Component {
   render() {
     return (
       <div>
+        <MyNavBar/>
         <h3> Include Coffee</h3>
         <input
           placeholder={this.state.id}

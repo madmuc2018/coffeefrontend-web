@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import api from "../../Data/api";
+import MyNavBar from '../MyNavBar';
 
 class HomePage extends Component {
   constructor() {
@@ -22,6 +23,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
+        <MyNavBar/>
         <h1>History</h1>
         {this.state.versions.map(o =>
           <div key={o.id}>

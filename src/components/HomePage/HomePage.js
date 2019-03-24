@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import api from "../../Data/api";
-import { Link } from 'react-router-dom'
+import { Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import MyNavBar from '../MyNavBar';
 
 class HomePage extends Component {
   constructor() {
@@ -23,6 +25,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
+        <MyNavBar/>
         <h1>Inventory</h1>
         {this.state.orders.map(o =>
           <div key={o.guid}>
@@ -31,9 +34,15 @@ class HomePage extends Component {
             <p> Variety: {o.data.variety} </p>
             <p> Quantity: {o.data.quantity} </p>
             <p> Status: {o.data.status} </p>
-            <Link to={`/orders/${o.guid}/update`} replace > Update</Link>
-            <Link to={`/orders/${o.guid}/history`}>History</Link>
-            <Link to={`/orders/${o.guid}/qr`}>QR Code</Link>
+            <LinkContainer to={`/orders/${o.guid}/update`} replace>
+              <Button>Update</Button>
+            </LinkContainer>
+            <LinkContainer to={`/orders/${o.guid}/history`} replace>
+              <Button>History</Button>
+            </LinkContainer>
+            <LinkContainer to={`/orders/${o.guid}/qr`} replace>
+              <Button>QRCode</Button>
+            </LinkContainer>
             <hr />
           </div>
         )}

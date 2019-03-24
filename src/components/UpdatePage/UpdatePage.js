@@ -1,5 +1,6 @@
 import React from "react";
 import api from "../../Data/api";
+import MyNavBar from '../MyNavBar';
 
 class UpdatePage extends React.Component {
   constructor(props) {
@@ -64,6 +65,7 @@ class UpdatePage extends React.Component {
   render() {
     return (
       <div>
+        <MyNavBar/>
         <h3> Update Coffee</h3>
         <input
           placeholder={this.state.id}
