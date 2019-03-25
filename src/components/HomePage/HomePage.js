@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import api from "../../Data/api";
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import MyNavBar from '../MyNavBar';
 
@@ -23,8 +23,12 @@ class HomePage extends Component {
 
   async componentDidMount() {
     try {
+      this.setState({loading: true});
       const orders = await api.getOrders();
-      this.setState({orders});
+      this.setState({
+        orders,
+        loading: undefined
+      });
     } catch (error) {
       alert(error);
     }
@@ -35,39 +39,45 @@ class HomePage extends Component {
       <div>
         <MyNavBar/>
         <h1>Inventory</h1>
-        <input
-          placeholder="Search by ID"
-          name="filterer"
-          onChange={this.handleFilter}
-        />
-        <br/>
-        {this.state.orders
-          .filter(o => {
-            const keyword = this.state.filterer;
-            return keyword.length === 0 ? true : o.data.id.trim().toLowerCase().includes(keyword);
-          })
-          .map(o =>
-          <div key={o.guid}>
-            <p> Id: {o.data.id} </p>
-            <p> Producer: {o.data.producer} </p>
-            <p> Variety: {o.data.variety} </p>
-            <p> Quantity: {o.data.quantity} </p>
-            <p> Status: {o.data.status} </p>
-            <LinkContainer to={`/orders/${o.guid}/update`} replace>
-              <Button>Update</Button>
-            </LinkContainer>
-            <LinkContainer to={`/orders/${o.guid}/history`} replace>
-              <Button>History</Button>
-            </LinkContainer>
-            <LinkContainer to={`/orders/${o.guid}/qr`} replace>
-              <Button>QRCode</Button>
-            </LinkContainer>
-            <LinkContainer to={`/orders/${o.guid}/access`} replace>
-              <Button>Access Control</Button>
-            </LinkContainer>
-            <hr />
+        {
+          this.state.loading ? (<Spinner animation="border" variant="primary" />) :
+          <div>
+            <input
+              placeholder="Search by ID"
+              name="filterer"
+              onChange={this.handleFilter}
+            />
+            <br/>
+            {this.state.orders
+              .filter(o => {
+                const keyword = this.state.filterer;
+                return keyword.length === 0 ? true : o.data.id.trim().toLowerCase().includes(keyword);
+              })
+              .map(o =>
+              <div key={o.guid}>
+                <p> Id: {o.data.id} </p>
+                <p> Producer: {o.data.producer} </p>
+                <p> Variety: {o.data.variety} </p>
+                <p> Quantity: {o.data.quantity} </p>
+                <p> Status: {o.data.status} </p>
+                <LinkContainer to={`/orders/${o.guid}/update`} replace>
+                  <Button>Update</Button>
+                </LinkContainer>
+                <LinkContainer to={`/orders/${o.guid}/history`} replace>
+                  <Button>History</Button>
+                </LinkContainer>
+                <LinkContainer to={`/orders/${o.guid}/qr`} replace>
+                  <Button>QRCode</Button>
+                </LinkContainer>
+                <LinkContainer to={`/orders/${o.guid}/access`} replace>
+                  <Button>Access Control</Button>
+                </LinkContainer>
+                <hr />
+              </div>
+            )}
           </div>
-        )}
+        }
+        
       </div>
     );
   }

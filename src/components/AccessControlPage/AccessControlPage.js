@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Spinner } from 'react-bootstrap';
 import api from "../../Data/api";
 import MyNavBar from '../MyNavBar';
 
@@ -42,9 +43,12 @@ class AccessControlPage extends Component {
 
   async componentDidMount() {
     try {
+      this.setState({loading: true});
       const grantedUsers = await api.getAccessInfo(this.props.match.params.id);
-      console.log(grantedUsers);
-      this.setState({grantedUsers});
+      this.setState({
+        grantedUsers,
+        loading: undefined
+      });
     } catch (error) {
       alert(error);
     }
@@ -55,23 +59,28 @@ class AccessControlPage extends Component {
       <div>
         <MyNavBar/>
         <h1>Access control</h1>
-        <h6> Coffee Id: </h6>
-        <h5> Authorized Users</h5>
-        {this.state.grantedUsers.map(u => <p>{u}</p>)}
-        <h5> Grant Access</h5>
-        <input
-          placeholder="Email"
-          name="userToBeGranted"
-          onChange={this.handleChange}
-        />Email
-        <button onClick={this.handleGrant}>Grant</button>
-        <h5> Revoke Access </h5>
-        <input
-          placeholder="Email"
-          name="userToBeRevoked"
-          onChange={this.handleChange}
-        />Email
-        <button onClick={this.handleRevoke}>Revoke</button>
+        {
+          this.state.loading ? (<Spinner animation="border" variant="primary" />) :
+          <div>
+            <h6> Coffee Id: </h6>
+            <h5> Authorized Users</h5>
+            {this.state.grantedUsers.map(u => <p>{u}</p>)}
+            <h5> Grant Access</h5>
+            <input
+              placeholder="Email"
+              name="userToBeGranted"
+              onChange={this.handleChange}
+            />Email
+            <button onClick={this.handleGrant}>Grant</button>
+            <h5> Revoke Access </h5>
+            <input
+              placeholder="Email"
+              name="userToBeRevoked"
+              onChange={this.handleChange}
+            />Email
+            <button onClick={this.handleRevoke}>Revoke</button>
+          </div>
+        }
       </div>
     );
   }
