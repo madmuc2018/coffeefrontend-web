@@ -62,6 +62,9 @@ class HomePage extends Component {
             <LinkContainer to={`/orders/${o.guid}/qr`} replace>
               <Button>QRCode</Button>
             </LinkContainer>
+            <LinkContainer to={`/orders/${o.guid}/access`} replace>
+              <Button>Access Control</Button>
+            </LinkContainer>
             <hr />
           </div>
         )}
