@@ -7,6 +7,7 @@ import LoginPage from "./components/LoginPage/LoginPage"
 import UpdatePage from "./components/UpdatePage/UpdatePage"
 import IncludePage from "./components/IncludePage/IncludePage"
 import HistoryPage from "./components/HistoryPage/HistoryPage"
+import QRCodePage from "./components/QRCodePage/QRCodePage"
 import AccessControlPage from "./components/AccessControlPage/AccessControlPage"
 import Auth from "./stores/auth";
 
@@ -66,6 +67,7 @@ export default class App extends React.Component {
           <PrivateRoute path="/orders/:id/update" component={UpdatePage} />
           <PrivateRoute path="/orders/:id/history" component={HistoryPage} />
           <PrivateRoute path="/orders/:id/access" component={AccessControlPage} />
+          <PrivateRoute path="/orders/:id/qr" component={QRCodePage} />
         </Switch>
       </HashRouter>
     );
