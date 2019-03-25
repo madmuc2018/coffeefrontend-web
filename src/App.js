@@ -59,15 +59,15 @@ export default class App extends React.Component {
     return (
       <HashRouter>
         <Switch>
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-          <LogoutRoute path="/logout" />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/register" component={RegisterPage} />
+          <LogoutRoute exact path="/logout" />
           <PrivateRoute exact path="/" component={HomePage} />
-          <PrivateRoute path="/orders/include" component={IncludePage} />
-          <PrivateRoute path="/orders/:id/update" component={UpdatePage} />
-          <PrivateRoute path="/orders/:id/history" component={HistoryPage} />
-          <PrivateRoute path="/orders/:id/access" component={AccessControlPage} />
-          <PrivateRoute path="/orders/:id/qr" component={QRCodePage} />
+          <PrivateRoute exact path="/orders/include" component={IncludePage} />
+          <PrivateRoute exact path="/orders/:id/update" component={UpdatePage} />
+          <PrivateRoute exact path="/orders/:id/history" component={HistoryPage} />
+          <PrivateRoute exact path="/orders/:id/access" component={AccessControlPage} />
+          <PrivateRoute exact path="/orders/:id/qr" component={QRCodePage} />
         </Switch>
       </HashRouter>
     );

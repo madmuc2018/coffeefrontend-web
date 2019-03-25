@@ -1,6 +1,7 @@
 import React from "react";
 import Auth from "../../stores/auth";
 import api from "../../Data/api";
+import MyAuthNavBar from '../MyAuthNavBar';
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class RegisterPage extends React.Component {
   render() {
     return (
       <div>
+        <MyAuthNavBar/>
         <h3>Register</h3>
         <input
           name="username"
