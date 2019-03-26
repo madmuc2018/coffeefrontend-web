@@ -60,16 +60,16 @@ class HomePage extends Component {
                 <p> Variety: {o.data.variety} </p>
                 <p> Quantity: {o.data.quantity} </p>
                 <p> Status: {o.data.status} </p>
-                <LinkContainer to={`/orders/${o.guid}/update`} replace>
+                <LinkContainer to={`/orders/${o.guid}/update`}>
                   <Button>Update</Button>
                 </LinkContainer>
-                <LinkContainer to={`/orders/${o.guid}/history`} replace>
+                <LinkContainer to={`/orders/${o.guid}/history`}>
                   <Button>History</Button>
                 </LinkContainer>
-                <LinkContainer to={`/orders/${o.guid}/qr`} replace>
+                <LinkContainer to={`/orders/${o.guid}/qr`}>
                   <Button>QRCode</Button>
                 </LinkContainer>
-                <LinkContainer to={`/orders/${o.guid}/access`} replace>
+                <LinkContainer to={`/orders/${o.guid}/access`}>
                   <Button>Access Control</Button>
                 </LinkContainer>
                 <hr />
