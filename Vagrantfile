@@ -47,6 +47,7 @@ Vagrant.configure("2") do |vagrant_conf|
     common_config(config, "3000")
     install_node(config)
     forward_port(config, 3000)
+    forward_port(config, 5000)
     config.vm.box = "ubuntu/xenial64"
   end
 end
