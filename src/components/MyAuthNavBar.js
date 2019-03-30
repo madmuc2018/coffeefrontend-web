@@ -15,14 +15,11 @@ export default () => (
       />
     </Navbar.Brand>
     <Nav className="mr-auto">
-      <LinkContainer to="/">
-        <Button variant="link">Home</Button>
+      <LinkContainer to="/login">
+        <Button variant="link">Login</Button>
       </LinkContainer>
-      <LinkContainer to="/orders/include">
-        <Button variant="link">Include</Button>
-      </LinkContainer>
-      <LinkContainer to="/logout">
-        <Button variant="link">Logout</Button>
+      <LinkContainer to="/register">
+        <Button variant="link">Register</Button>
       </LinkContainer>
     </Nav>
   </Navbar>
