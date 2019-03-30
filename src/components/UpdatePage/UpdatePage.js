@@ -57,6 +57,7 @@ class UpdatePage extends React.Component {
         this.setState({ isUpdate: false });
         this.props.history.replace("/");
       } catch (error) {
+        this.setState({ isUpdate: false });
         alert(error);
       }
     }
@@ -80,6 +81,7 @@ class UpdatePage extends React.Component {
         <MyNavBar/>
         <Container>
         <h3> Update Coffee</h3>
+        <br/>
         {
           this.state.loading ? (<Spinner animation="border" variant="primary" />) :
           <div>

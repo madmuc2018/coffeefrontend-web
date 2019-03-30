@@ -3,6 +3,7 @@ import { Spinner } from 'react-bootstrap';
 import api from "../../Data/api";
 import MyNavBar from '../MyNavBar';
 import QRCode from 'qrcode.react';
+import Container from 'react-bootstrap/Container';
 
 class UpdatePage extends React.Component {
   constructor(props) {
@@ -32,13 +33,17 @@ class UpdatePage extends React.Component {
     return (
       <div>
         <MyNavBar/>
+        <Container>
         {
           this.state.loading ? (<Spinner animation="border" variant="primary" />) :
           <div>
             <h3>Coffee id: {this.state.id}</h3>
-            <QRCode value={this.state.guid} />
+            <br/>
+            <br/>
+            <QRCode value={this.state.guid} style={{width:'100%',height:"auto"}}/>
           </div>
         }
+        </Container>
       </div>
     );
   }

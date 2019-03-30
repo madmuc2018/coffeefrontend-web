@@ -7,7 +7,8 @@ import FormControl from "react-bootstrap/FormControl";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-
+import Modal from "react-bootstrap/Modal";
+import Spinner from "react-bootstrap/Spinner";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class LoginPage extends React.Component {
 
     this.state = {
       username: "test1@test.com",
-      password: "123"
+      password: "123",
+      isUpdate: false
     };
 
     this.handleChange = event => {
@@ -31,9 +33,12 @@ class LoginPage extends React.Component {
 
     this.handleLogin = async event => {
       try {
+        this.setState({ isUpdate: true });
         Auth.setToken(await api.login(this.state.username, this.state.password));
+        this.setState({ isUpdate: false });
         this.props.history.replace("/");
       } catch (error) {
+        this.setState({ isUpdate: false });
         alert(error);
       }
     }
@@ -70,6 +75,13 @@ class LoginPage extends React.Component {
         <br/>
         <Button onClick={this.handleLogin}>Log in</Button>
         </Container>
+
+        <Modal show={this.state.isUpdate} onHide={()=>{}} >
+          <Modal.Body>
+            <Spinner animation="border" variant="primary" />
+            &nbsp;	&nbsp;	&nbsp;Now Loging in 
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }
