@@ -1,7 +1,10 @@
 import React from "react";
 import Auth from "../../stores/auth";
 import api from "../../Data/api";
+import FormRow from '../FormRow';
 import MyAuthNavBar from '../MyAuthNavBar';
+import AsyncAwareContainer from '../AsyncAwareContainer';
+import { Button, Container } from "react-bootstrap";
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -12,7 +15,7 @@ class RegisterPage extends React.Component {
     }
 
     this.state = {
-      username: "test1@test.com",
+      email: "test1@test.com",
       password: "123",
       role: ""
     };
@@ -26,33 +29,35 @@ class RegisterPage extends React.Component {
 
     this.handleRegister = async event => {
       try {
-        await api.register(this.state.username, this.state.password, this.state.role);
+        this.setState({loading: 'Registering'});
+        await api.register(this.state.email, this.state.password, this.state.role);
         this.props.history.replace("/login");
       } catch (error) {
         alert(error);
+      } finally {
+        if (!this.componentUnmounted)
+          this.setState({loading: undefined});
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.componentUnmounted = true;
   }
 
   render() {
     return (
       <div>
         <MyAuthNavBar/>
-        <h3>Register</h3>
-        <input
-          name="username"
-          onChange={this.handleChange}
-        /> Email
-        <input
-          type="password"
-          name="password"
-          onChange={this.handleChange}
-        /> Password
-        <input
-          name="role"
-          onChange={this.handleChange}
-        /> Role
-        <button onClick={this.handleRegister}>Register</button>
+        <Container>
+          <h3>Register</h3>
+          <AsyncAwareContainer loading={this.state.loading}>
+            <FormRow name="email" onChange={this.handleChange} />
+            <FormRow name="password" type="password" onChange={this.handleChange} />
+            <FormRow name="role" onChange={this.handleChange} />
+            <Button onClick={this.handleRegister}>Register</Button>
+          </AsyncAwareContainer>
+        </Container>
       </div>
     );
   }

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Spinner } from 'react-bootstrap';
+import { Card, ListGroup, Container, Alert } from 'react-bootstrap';
 import api from "../../Data/api";
 import MyNavBar from '../MyNavBar';
+import AsyncAwareContainer from '../AsyncAwareContainer';
 
-class HomePage extends Component {
+class HistoryPage extends Component {
   constructor() {
     super();
 
@@ -17,55 +18,55 @@ class HomePage extends Component {
       this.setState({loading: true});
       const versions = await api.getHistory(this.props.match.params.id);
       this.setState({
-        versions,
-        loading: undefined
+        versions
       });
     } catch (error) {
       alert(error);
+    } finally {
+      if (!this.componentUnmounted)
+        this.setState({loading: undefined});
     }
+  }
+
+  componentWillUnmount() {
+    this.componentUnmounted = true;
   }
 
   render() {
     return (
       <div>
         <MyNavBar/>
-        <h1>History</h1>
-        {
-          this.state.loading ? (<Spinner animation="border" variant="primary" />) :
-          <div>
+        <Container>
+          <h1>History</h1>
+          <AsyncAwareContainer loading={this.state.loading}>
             {this.state.versions.map(o =>
               <div key={o.id}>
-                <p/> Id: {o.id} 
-                <br/>
-                <p/> Producer: {o.producer} 
-                <br/>
-                <p/> Farm: {o.farm} 
-                <br/>
-                <p/> Elevation: {o.elevation} 
-                <br/>
-                <p/> Variety: {o.variety} 
-                <br/>
-                <p/> Process: {o.process} 
-                <br/>
-                <p/> Quantity: {o.quantity} 
-                <br/>
-                <p/> QC: {o.qc} 
-                <br/>
-                <p/> Tasting Notes: {o.tastingNotes} 
-                <br/>
-                <p/> Status: {o.status} 
-                <br/>
-                <p/> Last changed at: {o.lastChangedAt} 
-                <br/>
-                <p/> Last changed by: {o.lastChangedBy} 
-                <br/>
+                <Card>
+                  <Card.Body>
+                    <Card.Title > <Alert variant="info"> ID: {o.id} </Alert></Card.Title>
+                    <ListGroup variant="flush">
+                      <ListGroup.Item> Producer: {o.producer} </ListGroup.Item>
+                      <ListGroup.Item> Farm: {o.farm} </ListGroup.Item>
+                      <ListGroup.Item> Elevation: {o.elevation} </ListGroup.Item>
+                      <ListGroup.Item> Variety: {o.variety} </ListGroup.Item>
+                      <ListGroup.Item> Process: {o.process} </ListGroup.Item>
+                      <ListGroup.Item> Quantity: {o.quantity} </ListGroup.Item>
+                      <ListGroup.Item> QC: {o.qc} </ListGroup.Item>
+                      <ListGroup.Item> Tasting Notes: {o.tastingNotes} </ListGroup.Item>
+                      <ListGroup.Item> Status: {o.status} </ListGroup.Item>
+                      <ListGroup.Item> Last changed at: {o.lastChangedAt} </ListGroup.Item>
+                      <ListGroup.Item> Last changed by: {o.lastChangedBy} </ListGroup.Item>
+                    </ListGroup>
+                  </Card.Body>
+              </Card>
+              <br/>
               </div>
             )}
-          </div>
-        }
+          </AsyncAwareContainer>
+        </Container>
       </div>
     );
   }
 }
 
-export default HomePage;
+export default HistoryPage;

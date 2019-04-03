@@ -1,8 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import api from "../../Data/api";
+import FormRow from '../FormRow';
 import MyNavBar from '../MyNavBar';
+import AsyncAwareContainer from '../AsyncAwareContainer';
+import { Container, Button} from 'react-bootstrap';
 
-class IncludePage extends React.Component {
+class IncludePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +20,6 @@ class IncludePage extends React.Component {
       tastingNotes: ""
     };
 
-
     this.handleChange = event => {
       const { name, value } = event.target;
       this.setState({
@@ -27,74 +29,41 @@ class IncludePage extends React.Component {
 
     this.handleIncludeOrder = async event => {
       try {
+        this.setState({loading: 'Including order'});
         await api.addOrder(this.state);
         this.props.history.replace("/");
       } catch (error) {
         alert(error);
+      } finally {
+        if (!this.componentUnmounted)
+          this.setState({loading: undefined});
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.componentUnmounted = true;
   }
 
   render() {
     return (
       <div>
         <MyNavBar/>
-        <h3> Include Coffee</h3>
-        <input
-          placeholder={this.state.id}
-          name="id"
-          onChange={this.handleChange}
-        />Id
-        <br/>
-        <input
-          placeholder={this.state.producer}
-          name="producer"
-          onChange={this.handleChange}
-        />Producer
-        <br/>
-        <input
-          placeholder={this.state.farm}
-          name="farm"
-          onChange={this.handleChange}
-        />Farm
-        <br/>
-        <input
-          placeholder={this.state.elevation}
-          name="elevation"
-          onChange={this.handleChange}
-        />Elevation
-        <br/>
-        <input
-          placeholder={this.state.variety}
-          name="variety"
-          onChange={this.handleChange}
-        />Variety
-        <br/>
-        <input
-          placeholder={this.state.process}
-          name="process"
-          onChange={this.handleChange}
-        />Process
-        <br/>
-        <input
-          placeholder={this.state.quantity}
-          name="quantity"
-          onChange={this.handleChange}
-        />Quantity
-        <br/>
-        <input
-          placeholder={this.state.qc}
-          name="qc"
-          onChange={this.handleChange}
-        />QC
-        <br/>
-        <input
-          placeholder={this.state.tastingNotes}
-          name="tastingNotes"
-          onChange={this.handleChange}
-        />Tasting Notes
-        <br/>
-        <button onClick={this.handleIncludeOrder}>Include</button>
+        <Container>
+          <h3> Include Coffee</h3>
+          <AsyncAwareContainer loading={this.state.loading}>
+            <FormRow name="id" onChange={this.handleChange} />
+            <FormRow name="producer" onChange={this.handleChange} />
+            <FormRow name="farm" onChange={this.handleChange} />
+            <FormRow name="elevation" onChange={this.handleChange} />
+            <FormRow name="variety" onChange={this.handleChange} />
+            <FormRow name="process" onChange={this.handleChange} />
+            <FormRow name="quantity" onChange={this.handleChange} />
+            <FormRow name="qc" onChange={this.handleChange} />
+            <FormRow name="tastingNotes" onChange={this.handleChange} />
+            <Button onClick={this.handleIncludeOrder}>Include</Button>
+          </AsyncAwareContainer>
+        </Container>
       </div>
     );
   }

@@ -1,7 +1,9 @@
 import React from "react";
-import { Spinner } from 'react-bootstrap';
 import api from "../../Data/api";
+import FormRow from '../FormRow';
 import MyNavBar from '../MyNavBar';
+import AsyncAwareContainer from '../AsyncAwareContainer';
+import { Container, Button} from 'react-bootstrap';
 
 class UpdatePage extends React.Component {
   constructor(props) {
@@ -45,10 +47,14 @@ class UpdatePage extends React.Component {
 
     this.handleUpateOrder = async event => {
       try {
+        this.setState({loading: 'Updating order'});
         await api.updateOrder(this.state.guid, this.state);
         this.props.history.replace("/");
       } catch (error) {
         alert(error);
+      } finally {
+        if (!this.componentUnmounted)
+          this.setState({loading: undefined});
       }
     }
   }
@@ -59,83 +65,38 @@ class UpdatePage extends React.Component {
       const orders = await api.getOrders();
       const order = orders.filter(o => o.guid === this.props.match.params.id)[0];
       this.setStateOrder(order.guid, order.data);
-      this.setState({loading: undefined});
     } catch (error) {
       alert(error);
+    } finally {
+      if (!this.componentUnmounted)
+        this.setState({loading: undefined});
     }
+  }
+
+  componentWillUnmount() {
+    this.componentUnmounted = true;
   }
 
   render() {
     return (
       <div>
         <MyNavBar/>
-        <h3> Update Coffee</h3>
-        {
-          this.state.loading ? (<Spinner animation="border" variant="primary" />) :
-          <div>
-            <input
-              placeholder={this.state.id}
-              name="id"
-              onChange={this.handleChange}
-            /> Id
-            <br/>
-            <input
-              placeholder={this.state.producer}
-              name="producer"
-              onChange={this.handleChange}
-            /> Producer
-            <br/>
-            <input
-              placeholder={this.state.farm}
-              name="farm"
-              onChange={this.handleChange}
-            /> Farm
-            <br/>
-            <input
-              placeholder={this.state.elevation}
-              name="elevation"
-              onChange={this.handleChange}
-            /> Elevation
-            <br/>
-            <input
-              placeholder={this.state.variety}
-              name="variety"
-              onChange={this.handleChange}
-            /> Variety
-            <br/>
-            <input
-              placeholder={this.state.process}
-              name="process"
-              onChange={this.handleChange}
-            /> Process
-            <br/>
-            <input
-              placeholder={this.state.quantity}
-              name="quantity"
-              onChange={this.handleChange}
-            /> Quantity
-            <br/>
-            <input
-              placeholder={this.state.qc}
-              name="qc"
-              onChange={this.handleChange}
-            /> QC
-            <br/>
-            <input
-              placeholder={this.state.tastingNotes}
-              name="tastingNotes"
-              onChange={this.handleChange}
-            /> Tasting Notes
-            <br/>
-            <input
-              placeholder={this.state.status}
-              name="status"
-              onChange={this.handleChange}
-            /> Status
-            <br/>
-            <button onClick={this.handleUpateOrder}>Update</button>
-          </div>
-        }
+        <Container>
+          <h3> Update Coffee</h3>
+            <AsyncAwareContainer loading={this.state.loading}>
+              <FormRow name="id" placeholder={this.state.id} onChange={this.handleChange} />
+              <FormRow name="producer" placeholder={this.state.producer} onChange={this.handleChange} />
+              <FormRow name="farm" placeholder={this.state.farm} onChange={this.handleChange} />
+              <FormRow name="elevation" placeholder={this.state.elevation} onChange={this.handleChange} />
+              <FormRow name="variety" placeholder={this.state.variety} onChange={this.handleChange} />
+              <FormRow name="process" placeholder={this.state.process} onChange={this.handleChange} />
+              <FormRow name="quantity" placeholder={this.state.quantity} onChange={this.handleChange} />
+              <FormRow name="qc" placeholder={this.state.qc} onChange={this.handleChange} />
+              <FormRow name="tastingNotes" placeholder={this.state.tastingNotes} onChange={this.handleChange} />
+              <FormRow name="status" placeholder={this.state.status} onChange={this.handleChange} />
+              <Button onClick={this.handleUpateOrder}>Update</Button>
+            </AsyncAwareContainer>
+          </Container>
       </div>
     );
   }

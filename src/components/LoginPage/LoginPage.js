@@ -1,7 +1,10 @@
 import React from "react";
 import Auth from "../../stores/auth";
 import api from "../../Data/api";
+import FormRow from '../FormRow';
 import MyAuthNavBar from '../MyAuthNavBar';
+import { Button, Container } from "react-bootstrap";
+import AsyncAwareContainer from '../AsyncAwareContainer';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -12,7 +15,7 @@ class LoginPage extends React.Component {
     }
 
     this.state = {
-      username: "test1@test.com",
+      email: "test1@test.com",
       password: "123"
     };
 
@@ -25,32 +28,34 @@ class LoginPage extends React.Component {
 
     this.handleLogin = async event => {
       try {
-        Auth.setToken(await api.login(this.state.username, this.state.password));
+        this.setState({loading: 'Logging in'});
+        Auth.setToken(await api.login(this.state.email, this.state.password));
         this.props.history.replace("/");
       } catch (error) {
         alert(error);
+      } finally {
+        if (!this.componentUnmounted)
+          this.setState({loading: undefined});
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.componentUnmounted = true;
   }
 
   render() {
     return (
       <div>
         <MyAuthNavBar/>
-        <h3>Login</h3>
-        <input
-          type="text"
-          value={this.state.username}
-          name="username"
-          onChange={this.handleChange}
-        /> Email
-        <input
-          type="text"
-          value={this.state.password}
-          name="password"
-          onChange={this.handleChange}
-        /> Password
-        <button onClick={this.handleLogin}>Log in</button>
+        <Container>
+          <h3>Login</h3>
+          <AsyncAwareContainer loading={this.state.loading}>
+            <FormRow name="email" onChange={this.handleChange} />
+            <FormRow name="password" type="password" onChange={this.handleChange} />
+            <Button onClick={this.handleLogin}>Log in</Button>
+          </AsyncAwareContainer>
+        </Container>
       </div>
     );
   }
