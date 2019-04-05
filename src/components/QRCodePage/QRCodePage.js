@@ -48,7 +48,7 @@ class QRCodePage extends React.Component {
               <br/>
             </div>
             <div className="text-center">
-              <QRCode size="400" value={this.state.guid} />
+              <QRCode size="100" value={this.state.guid} />
             </div>
           </AsyncAwareContainer>
         </Container>

@@ -22,6 +22,9 @@ export default () => (
         <LinkContainer to="/orders/include">
           <Button variant="link">Include</Button>
         </LinkContainer>
+        <LinkContainer to="/orders/scan">
+          <Button variant="link">ScanQRCode</Button>
+        </LinkContainer>
         <LinkContainer to="/logout">
           <Button variant="link">Logout</Button>
         </LinkContainer>

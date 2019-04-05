@@ -8,6 +8,7 @@ import UpdatePage from "./components/UpdatePage/UpdatePage"
 import IncludePage from "./components/IncludePage/IncludePage"
 import HistoryPage from "./components/HistoryPage/HistoryPage"
 import QRCodePage from "./components/QRCodePage/QRCodePage"
+import ScannerPage from "./components/ScannerPage/ScannerPage"
 import AccessControlPage from "./components/AccessControlPage/AccessControlPage"
 import Auth from "./stores/auth";
 
@@ -64,6 +65,7 @@ export default class App extends React.Component {
           <LogoutRoute exact path="/logout" />
           <PrivateRoute exact path="/" component={HomePage} />
           <PrivateRoute exact path="/orders/include" component={IncludePage} />
+          <PrivateRoute exact path="/orders/scan" component={ScannerPage} />
           <PrivateRoute exact path="/orders/:id/update" component={UpdatePage} />
           <PrivateRoute exact path="/orders/:id/history" component={HistoryPage} />
           <PrivateRoute exact path="/orders/:id/access" component={AccessControlPage} />
