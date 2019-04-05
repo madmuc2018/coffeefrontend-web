@@ -46,7 +46,7 @@ class HistoryPage extends Component {
         <Container>
           <h1 className="text-center">History</h1>
           <AsyncAwareContainer loading={this.state.loading}>
-            <div className="text-right">
+            <div className="text-center">
               <CoffeeItemNav coffeeGuid={this.state.guid} coffeeId={this.state.id}></CoffeeItemNav>
               <br/>
             </div>

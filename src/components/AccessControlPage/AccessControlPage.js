@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button , FormControl, Container, Card, CardGroup } from 'react-bootstrap';
+import { Button , FormControl, Container, Card, CardDeck } from 'react-bootstrap';
 import api from "../../Data/api";
 import MyNavBar from '../MyNavBar';
 import CoffeeItemNav from '../CoffeeItemNav';
@@ -86,7 +86,7 @@ class AccessControlPage extends Component {
         <Container>
           <h1 className="text-center">Access control</h1>
           <AsyncAwareContainer loading={this.state.loading}>
-            <div className="text-right">
+            <div className="text-center">
               <CoffeeItemNav coffeeGuid={this.state.guid} coffeeId={this.state.id}></CoffeeItemNav>
               <br/>
             </div>
@@ -96,10 +96,11 @@ class AccessControlPage extends Component {
                 {this.state.grantedUsers.map(u => <p>{u}</p>)}
               </Card.Body>
             </Card>
-            <CardGroup>
+            <br/>
+            <CardDeck>
               <EmailCard bg="success" task="Grant" name="userToBeGranted" onChange={this.handleChange} onClick={this.handleGrant} />
               <EmailCard bg="danger" task="Revoke" name="userToBeRevoked" onChange={this.handleChange} onClick={this.handleRevoke} />
-            </CardGroup>
+            </CardDeck>
           </AsyncAwareContainer>
         </Container>
       </div>
