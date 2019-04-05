@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import api from "../../Data/api";
-import { Button, Container, Card, ListGroup, InputGroup, FormControl, Row } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Container, Card, ListGroup, InputGroup, FormControl } from 'react-bootstrap';
 import MyNavBar from '../MyNavBar';
+import CoffeeItemNav from '../CoffeeItemNav';
 import AsyncAwareContainer from '../AsyncAwareContainer';
 
 
@@ -47,7 +47,7 @@ class HomePage extends Component {
       <div>
         <MyNavBar/>
         <Container>
-          <h1>Inventory</h1>
+          <h1 className="text-center">Inventory</h1>
           <AsyncAwareContainer loading={this.state.loading}>
             <InputGroup>
               <FormControl
@@ -63,31 +63,16 @@ class HomePage extends Component {
               })
               .map(o =>
                 <Card key={o.guid}>
+                  <Card.Header className="text-center">
+                    <CoffeeItemNav coffeeGuid={o.guid} coffeeId={o.data.id}></CoffeeItemNav>
+                  </Card.Header>
                   <Card.Body>
-                    <Card.Title> ID: {o.data.id} </Card.Title>
                     <ListGroup variant="flush">
                       <ListGroup.Item> Producer: {o.data.producer} </ListGroup.Item>
                       <ListGroup.Item> Variety: {o.data.variety} </ListGroup.Item>
                       <ListGroup.Item> Quantity: {o.data.quantity} </ListGroup.Item>
                       <ListGroup.Item> Status: {o.data.status} </ListGroup.Item>
                     </ListGroup>
-                    <Row>
-                      <LinkContainer to={`/orders/${o.guid}/update`} replace>
-                        <Button variant='success' size="sm" block>Update</Button>
-                      </LinkContainer>
-
-                      <LinkContainer to={`/orders/${o.guid}/history`} replace>
-                        <Button variant='info' size="sm" block>History</Button>
-                      </LinkContainer>
-
-                      <LinkContainer to={`/orders/${o.guid}/qr`} replace>
-                        <Button variant='info' size="sm" block>QRCode</Button>
-                      </LinkContainer>
-
-                      <LinkContainer to={`/orders/${o.guid}/access`} replace>
-                        <Button variant='info' size="sm" block>Access Control</Button>
-                      </LinkContainer>
-                    </Row>
                   </Card.Body>
                 </Card>
             )}

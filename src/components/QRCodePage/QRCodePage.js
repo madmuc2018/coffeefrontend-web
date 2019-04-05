@@ -1,6 +1,7 @@
 import React from "react";
 import api from "../../Data/api";
 import MyNavBar from '../MyNavBar';
+import CoffeeItemNav from '../CoffeeItemNav';
 import QRCode from 'qrcode.react';
 import { Container } from 'react-bootstrap';
 import AsyncAwareContainer from '../AsyncAwareContainer';
@@ -40,9 +41,15 @@ class QRCodePage extends React.Component {
       <div>
         <MyNavBar/>
         <Container>
-          <h3>Coffee id: {this.state.id}</h3>
+          <h1 className="text-center">QR code</h1>
           <AsyncAwareContainer loading={this.state.loading}>
-            <QRCode value={this.state.guid} />
+            <div className="text-right">
+              <CoffeeItemNav coffeeGuid={this.state.guid} coffeeId={this.state.id}></CoffeeItemNav>
+              <br/>
+            </div>
+            <div className="text-center">
+              <QRCode size="400" value={this.state.guid} />
+            </div>
           </AsyncAwareContainer>
         </Container>
       </div>

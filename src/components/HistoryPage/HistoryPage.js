@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card, ListGroup, Container, Alert } from 'react-bootstrap';
 import api from "../../Data/api";
 import MyNavBar from '../MyNavBar';
+import CoffeeItemNav from '../CoffeeItemNav';
 import AsyncAwareContainer from '../AsyncAwareContainer';
 
 class HistoryPage extends Component {
@@ -9,6 +10,8 @@ class HistoryPage extends Component {
     super();
 
     this.state = {
+      guid: "",
+      id: "",
       versions: []
     };
   }
@@ -17,7 +20,11 @@ class HistoryPage extends Component {
     try {
       this.setState({loading: true});
       const versions = await api.getHistory(this.props.match.params.id);
+      const orders = await api.getOrders();
+      const order = orders.filter(o => o.guid === this.props.match.params.id)[0];
       this.setState({
+        guid: order.guid,
+        id: order.data.id,
         versions
       });
     } catch (error) {
@@ -37,8 +44,12 @@ class HistoryPage extends Component {
       <div>
         <MyNavBar/>
         <Container>
-          <h1>History</h1>
+          <h1 className="text-center">History</h1>
           <AsyncAwareContainer loading={this.state.loading}>
+            <div className="text-right">
+              <CoffeeItemNav coffeeGuid={this.state.guid} coffeeId={this.state.id}></CoffeeItemNav>
+              <br/>
+            </div>
             {this.state.versions.map(o =>
               <div key={o.id}>
                 <Card>

@@ -13,10 +13,12 @@ class AsyncAwareContainer extends Component {
         {
           loading ? 
             (
-              <Modal show={loading} onHide={()=>{}} >
+              <Modal show={loading} centered>
                 <Modal.Body>
-                  <Spinner animation="border" variant="primary" />
-                  &nbsp;  &nbsp;  &nbsp; {message}
+                  <div class="text-center">
+                    <Spinner animation="border" variant="primary" />
+                    &nbsp; {message}
+                  </div>
                 </Modal.Body>
               </Modal>
             ) :

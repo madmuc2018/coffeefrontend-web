@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Button , FormControl, Container, Col, Row  } from 'react-bootstrap';
+import { Button , FormControl, Container, Card, CardGroup } from 'react-bootstrap';
 import api from "../../Data/api";
 import MyNavBar from '../MyNavBar';
+import CoffeeItemNav from '../CoffeeItemNav';
 import AsyncAwareContainer from '../AsyncAwareContainer';
 
 class AccessControlPage extends Component {
@@ -9,6 +10,7 @@ class AccessControlPage extends Component {
     super();
 
     this.state = {
+      guid: "",
       id: "",
       grantedUsers: [],
       userToBeGranted: "",
@@ -59,9 +61,10 @@ class AccessControlPage extends Component {
     try {
       this.setState({loading: true});
       const grantedUsers = await api.getAccessInfo(this.props.match.params.id);
-      const id = (await api.getOrders()).filter(o => o.guid === this.props.match.params.id)[0].data.id;
+      const order = (await api.getOrders()).filter(o => o.guid === this.props.match.params.id)[0];
       this.setState({
-        id,
+        guid: order.guid,
+        id: order.data.id,
         grantedUsers
       });
     } catch (error) {
@@ -81,16 +84,22 @@ class AccessControlPage extends Component {
       <div>
         <MyNavBar/>
         <Container>
-          <h1>Access control</h1>
+          <h1 className="text-center">Access control</h1>
           <AsyncAwareContainer loading={this.state.loading}>
-            <h6> Coffee Id: {this.state.id}</h6>
-            <h6> Authorized Users</h6>
-            {this.state.grantedUsers.map(u => <p>{u}</p>)}
-            <br/>
-            <h5>Grant Access</h5>
-            <EmailRow name="userToBeGranted" onChange={this.handleChange} onClick={this.handleGrant} />
-            <h5> Revoke Access </h5>
-            <EmailRow name="userToBeRevoked" onChange={this.handleChange} onClick={this.handleRevoke} />
+            <div className="text-right">
+              <CoffeeItemNav coffeeGuid={this.state.guid} coffeeId={this.state.id}></CoffeeItemNav>
+              <br/>
+            </div>
+            <Card>
+              <Card.Header>Authorized Users</Card.Header>
+              <Card.Body>
+                {this.state.grantedUsers.map(u => <p>{u}</p>)}
+              </Card.Body>
+            </Card>
+            <CardGroup>
+              <EmailCard bg="success" task="Grant" name="userToBeGranted" onChange={this.handleChange} onClick={this.handleGrant} />
+              <EmailCard bg="danger" task="Revoke" name="userToBeRevoked" onChange={this.handleChange} onClick={this.handleRevoke} />
+            </CardGroup>
           </AsyncAwareContainer>
         </Container>
       </div>
@@ -98,25 +107,16 @@ class AccessControlPage extends Component {
   }
 }
 
-class EmailRow extends Component {
+class EmailCard extends Component {
   render() {
     return (
-      <div>
-        <Row>
-          <Col xs="2">Email</Col>
-          <Col xs="10">
-            <FormControl
-              placeholder="Email"
-              name={this.props.name}
-              onChange={this.props.onChange}/>
-          </Col>
-        </Row>
-        <br/>
-        <Button onClick={this.props.onClick} size="sm">Grant</Button>
-        <br/>
-        <br/>
-        <br/>
-      </div>
+      <Card bg={this.props.bg}>
+        <Card.Header>{this.props.task} Access</Card.Header>
+        <Card.Body>
+          <FormControl placeholder="Email" name={this.props.name} onChange={this.props.onChange}/>
+          <Button onClick={this.props.onClick} size="sm">{this.props.task}</Button>
+        </Card.Body>
+      </Card>
     );
   }
 }

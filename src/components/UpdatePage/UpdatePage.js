@@ -2,8 +2,9 @@ import React from "react";
 import api from "../../Data/api";
 import FormRow from '../FormRow';
 import MyNavBar from '../MyNavBar';
+import CoffeeItemNav from '../CoffeeItemNav';
 import AsyncAwareContainer from '../AsyncAwareContainer';
-import { Container, Button} from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 
 class UpdatePage extends React.Component {
   constructor(props) {
@@ -82,8 +83,12 @@ class UpdatePage extends React.Component {
       <div>
         <MyNavBar/>
         <Container>
-          <h3> Update Coffee</h3>
+          <h1 className="text-center">Update Coffee</h1>
             <AsyncAwareContainer loading={this.state.loading}>
+              <div className="text-right">
+                <CoffeeItemNav coffeeGuid={this.state.guid} coffeeId={this.state.id}></CoffeeItemNav>
+                <br/>
+              </div>
               <FormRow name="id" placeholder={this.state.id} onChange={this.handleChange} />
               <FormRow name="producer" placeholder={this.state.producer} onChange={this.handleChange} />
               <FormRow name="farm" placeholder={this.state.farm} onChange={this.handleChange} />
@@ -94,7 +99,9 @@ class UpdatePage extends React.Component {
               <FormRow name="qc" placeholder={this.state.qc} onChange={this.handleChange} />
               <FormRow name="tastingNotes" placeholder={this.state.tastingNotes} onChange={this.handleChange} />
               <FormRow name="status" placeholder={this.state.status} onChange={this.handleChange} />
-              <Button onClick={this.handleUpateOrder}>Update</Button>
+              <div className="text-center">
+                <Button onClick={this.handleUpateOrder}>Update</Button>
+              </div>
             </AsyncAwareContainer>
           </Container>
       </div>

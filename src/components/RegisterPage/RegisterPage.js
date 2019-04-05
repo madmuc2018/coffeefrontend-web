@@ -50,7 +50,7 @@ class RegisterPage extends React.Component {
       <div>
         <MyAuthNavBar/>
         <Container>
-          <h3>Register</h3>
+          <h1>Register</h1>
           <AsyncAwareContainer loading={this.state.loading}>
             <FormRow name="email" onChange={this.handleChange} />
             <FormRow name="password" type="password" onChange={this.handleChange} />

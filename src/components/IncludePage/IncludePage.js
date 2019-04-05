@@ -50,7 +50,7 @@ class IncludePage extends Component {
       <div>
         <MyNavBar/>
         <Container>
-          <h3> Include Coffee</h3>
+          <h1 className="text-center">Include Coffee</h1>
           <AsyncAwareContainer loading={this.state.loading}>
             <FormRow name="id" onChange={this.handleChange} />
             <FormRow name="producer" onChange={this.handleChange} />
@@ -61,7 +61,9 @@ class IncludePage extends Component {
             <FormRow name="quantity" onChange={this.handleChange} />
             <FormRow name="qc" onChange={this.handleChange} />
             <FormRow name="tastingNotes" onChange={this.handleChange} />
-            <Button onClick={this.handleIncludeOrder}>Include</Button>
+            <div className="text-center">
+              <Button onClick={this.handleIncludeOrder}>Include</Button>
+            </div>
           </AsyncAwareContainer>
         </Container>
       </div>

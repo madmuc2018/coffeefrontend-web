@@ -49,7 +49,7 @@ class LoginPage extends React.Component {
       <div>
         <MyAuthNavBar/>
         <Container>
-          <h3>Login</h3>
+          <h1>Login</h1>
           <AsyncAwareContainer loading={this.state.loading}>
             <FormRow name="email" onChange={this.handleChange} />
             <FormRow name="password" type="password" onChange={this.handleChange} />
