@@ -31,7 +31,7 @@ class RegisterPage extends React.Component {
       try {
         this.setState({loading: 'Registering'});
         await api.register(this.state.email, this.state.password, this.state.role);
-        this.props.history.replace("/login");
+        this.props.history.push("/login");
       } catch (error) {
         alert(error);
       } finally {

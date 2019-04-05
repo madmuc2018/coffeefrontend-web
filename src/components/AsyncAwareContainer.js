@@ -15,7 +15,7 @@ class AsyncAwareContainer extends Component {
             (
               <Modal show={loading} centered>
                 <Modal.Body>
-                  <div class="text-center">
+                  <div className="text-center">
                     <Spinner animation="border" variant="primary" />
                     &nbsp; {message}
                   </div>

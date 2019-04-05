@@ -50,7 +50,7 @@ class UpdatePage extends React.Component {
       try {
         this.setState({loading: 'Updating order'});
         await api.updateOrder(this.state.guid, this.state);
-        this.props.history.replace("/");
+        this.props.history.push("/");
       } catch (error) {
         alert(error);
       } finally {
@@ -84,26 +84,26 @@ class UpdatePage extends React.Component {
         <MyNavBar/>
         <Container>
           <h1 className="text-center">Update Coffee</h1>
-            <AsyncAwareContainer loading={this.state.loading}>
-              <div className="text-right">
-                <CoffeeItemNav coffeeGuid={this.state.guid} coffeeId={this.state.id}></CoffeeItemNav>
-                <br/>
-              </div>
-              <FormRow name="id" placeholder={this.state.id} onChange={this.handleChange} />
-              <FormRow name="producer" placeholder={this.state.producer} onChange={this.handleChange} />
-              <FormRow name="farm" placeholder={this.state.farm} onChange={this.handleChange} />
-              <FormRow name="elevation" placeholder={this.state.elevation} onChange={this.handleChange} />
-              <FormRow name="variety" placeholder={this.state.variety} onChange={this.handleChange} />
-              <FormRow name="process" placeholder={this.state.process} onChange={this.handleChange} />
-              <FormRow name="quantity" placeholder={this.state.quantity} onChange={this.handleChange} />
-              <FormRow name="qc" placeholder={this.state.qc} onChange={this.handleChange} />
-              <FormRow name="tastingNotes" placeholder={this.state.tastingNotes} onChange={this.handleChange} />
-              <FormRow name="status" placeholder={this.state.status} onChange={this.handleChange} />
-              <div className="text-center">
-                <Button onClick={this.handleUpateOrder}>Update</Button>
-              </div>
-            </AsyncAwareContainer>
-          </Container>
+          <AsyncAwareContainer loading={this.state.loading}>
+            <div className="text-right">
+              <CoffeeItemNav coffeeGuid={this.state.guid} coffeeId={this.state.id}></CoffeeItemNav>
+              <br/>
+            </div>
+            <FormRow name="id" placeholder={this.state.id} onChange={this.handleChange} />
+            <FormRow name="producer" placeholder={this.state.producer} onChange={this.handleChange} />
+            <FormRow name="farm" placeholder={this.state.farm} onChange={this.handleChange} />
+            <FormRow name="elevation" placeholder={this.state.elevation} onChange={this.handleChange} />
+            <FormRow name="variety" placeholder={this.state.variety} onChange={this.handleChange} />
+            <FormRow name="process" placeholder={this.state.process} onChange={this.handleChange} />
+            <FormRow name="quantity" placeholder={this.state.quantity} onChange={this.handleChange} />
+            <FormRow name="qc" placeholder={this.state.qc} onChange={this.handleChange} />
+            <FormRow name="tastingNotes" placeholder={this.state.tastingNotes} onChange={this.handleChange} />
+            <FormRow name="status" placeholder={this.state.status} onChange={this.handleChange} />
+            <div className="text-center">
+              <Button onClick={this.handleUpateOrder}>Update</Button>
+            </div>
+          </AsyncAwareContainer>
+        </Container>
       </div>
     );
   }

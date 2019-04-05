@@ -31,7 +31,7 @@ class IncludePage extends Component {
       try {
         this.setState({loading: 'Including order'});
         await api.addOrder(this.state);
-        this.props.history.replace("/");
+        this.props.history.push("/");
       } catch (error) {
         alert(error);
       } finally {
