@@ -40,6 +40,10 @@ class HistoryPage extends Component {
   }
 
   render() {
+    if (this.state.versions[0]) {
+      console.log((new Date(parseInt(this.state.versions[0].lastChangedAt))).toUTCString());      
+    }
+    
     return (
       <div>
         <MyNavBar/>
@@ -65,7 +69,7 @@ class HistoryPage extends Component {
                       <ListGroup.Item> QC: {o.qc} </ListGroup.Item>
                       <ListGroup.Item> Tasting Notes: {o.tastingNotes} </ListGroup.Item>
                       <ListGroup.Item> Status: {o.status} </ListGroup.Item>
-                      <ListGroup.Item> Last changed at: {o.lastChangedAt} </ListGroup.Item>
+                      <ListGroup.Item> Last changed at: {(new Date(parseInt(o.lastChangedAt))).toUTCString()} </ListGroup.Item>
                       <ListGroup.Item> Last changed by: {o.lastChangedBy} </ListGroup.Item>
                     </ListGroup>
                   </Card.Body>
