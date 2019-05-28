@@ -1,7 +1,8 @@
 import axios from "axios";
 import Auth from "../stores/auth";
 
-const API = "https://fsbccoffee.ngrok.io/v1";
+// const API = "https://fsbccoffee.ngrok.io/v1";
+const API = "https://secure-earth-88043.herokuapp.com/v1";
 
 function authHeader() {
   return { headers: {"Authorization": `Bearer ${Auth.getToken()}`} };
