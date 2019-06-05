@@ -17,7 +17,8 @@ class IncludePage extends Component {
       process: "",
       quantity: "",
       qc: "",
-      tastingNotes: ""
+      tastingNotes: "",
+      price:""
     };
 
     this.handleChange = event => {
@@ -61,6 +62,7 @@ class IncludePage extends Component {
             <FormRow name="quantity" onChange={this.handleChange} />
             <FormRow name="qc" onChange={this.handleChange} />
             <FormRow name="tastingNotes" onChange={this.handleChange} />
+            <FormRow name="price" onChange={this.handleChange} />
             <div className="text-center">
               <Button onClick={this.handleIncludeOrder}>Include</Button>
             </div>
