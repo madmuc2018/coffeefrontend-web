@@ -68,6 +68,7 @@ class HistoryPage extends Component {
                       <ListGroup.Item> Quantity: {o.quantity} </ListGroup.Item>
                       <ListGroup.Item> QC: {o.qc} </ListGroup.Item>
                       <ListGroup.Item> Tasting Notes: {o.tastingNotes} </ListGroup.Item>
+                      <ListGroup.Item> Price: {o.price} </ListGroup.Item>
                       <ListGroup.Item> Status: {o.status} </ListGroup.Item>
                       <ListGroup.Item> Last changed at: {(new Date(parseInt(o.lastChangedAt))).toUTCString()} </ListGroup.Item>
                       <ListGroup.Item> Last changed by: {o.lastChangedBy} </ListGroup.Item>
