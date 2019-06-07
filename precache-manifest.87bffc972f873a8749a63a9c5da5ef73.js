@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/coffeefrontend-web/static/js/runtime~main.c146627e.js"
   },
   {
-    "revision": "c704b19e7c12b2a24c3c",
-    "url": "/coffeefrontend-web/static/js/main.66d18e54.chunk.js"
+    "revision": "f19b5383f9a5e0a2a6e6",
+    "url": "/coffeefrontend-web/static/js/main.93061e50.chunk.js"
   },
   {
     "revision": "e2ec95624aac29c98b8c",
     "url": "/coffeefrontend-web/static/js/2.1b7eee5e.chunk.js"
   },
   {
-    "revision": "c704b19e7c12b2a24c3c",
+    "revision": "f19b5383f9a5e0a2a6e6",
     "url": "/coffeefrontend-web/static/css/main.033ddfa2.chunk.css"
   },
   {
-    "revision": "c98b9ba190f60a334284b1fe0b39813a",
+    "revision": "6b0cfcb56ba000808443f6342e9e9f0a",
     "url": "/coffeefrontend-web/index.html"
   }
 ];
