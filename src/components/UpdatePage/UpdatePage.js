@@ -20,6 +20,7 @@ class UpdatePage extends React.Component {
       quantity: "",
       qc: "",
       tastingNotes: "",
+      price: "",
       status: ""
     };
 
@@ -35,6 +36,7 @@ class UpdatePage extends React.Component {
         quantity: order.quantity,
         qc: order.qc,
         tastingNotes: order.tastingNotes,
+        price: order.price,
         status: order.status
       });
     }
@@ -98,6 +100,7 @@ class UpdatePage extends React.Component {
             <FormRow name="quantity" placeholder={this.state.quantity} onChange={this.handleChange} />
             <FormRow name="qc" placeholder={this.state.qc} onChange={this.handleChange} />
             <FormRow name="tastingNotes" placeholder={this.state.tastingNotes} onChange={this.handleChange} />
+            <FormRow name="price" placeholder={this.state.price} onChange={this.handleChange} />
             <FormRow name="status" placeholder={this.state.status} onChange={this.handleChange} />
             <div className="text-center">
               <Button onClick={this.handleUpateOrder}>Update</Button>
